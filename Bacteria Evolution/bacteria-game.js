@@ -1,21 +1,31 @@
 // Initial game state
 let bacteriaCount = 0;
 let bacteriaPerClick = 1;
-let replicationRate = 1;
+let replicationRate = 1; // for future use
+let autoGrowth = 0; // Automatically gained bacteria per second
 let upgrade1Cost = 10;
 let upgrade2Cost = 100;
+let upgrade3Cost = 50; // Cost for automated growth
 let upgrade1Purchased = false;
 let upgrade2Purchased = false;
+let upgrade3Purchased = false; // For tracking if automated growth has been purchased
 
 // DOM elements
 const bacteriaCountElement = document.getElementById('bacteria-count');
+const autoGrowthElement = document.getElementById('auto-growth');
 const replicateBtn = document.getElementById('replicate-btn');
 const buyUpgrade1Btn = document.getElementById('buy-upgrade-1');
 const buyUpgrade2Btn = document.getElementById('buy-upgrade-2');
+const buyUpgrade3Btn = document.getElementById('buy-upgrade-3');
 
 // Function to update the bacteria count display
 function updateBacteriaCount() {
     bacteriaCountElement.innerText = bacteriaCount;
+}
+
+// Function to update the automated growth display
+function updateAutoGrowth() {
+    autoGrowthElement.innerText = autoGrowth;
 }
 
 // Function for replicating bacteria when clicking the button
@@ -47,3 +57,22 @@ buyUpgrade2Btn.addEventListener('click', () => {
         updateBacteriaCount();
     }
 });
+
+// Function to buy the Automated Growth upgrade
+buyUpgrade3Btn.addEventListener('click', () => {
+    if (bacteriaCount >= upgrade3Cost && !upgrade3Purchased) {
+        bacteriaCount -= upgrade3Cost;
+        autoGrowth += 1; // Increase automated growth rate
+        upgrade3Purchased = true;
+        buyUpgrade3Btn.disabled = true;
+        buyUpgrade3Btn.innerText = 'Purchased';
+        updateBacteriaCount();
+        updateAutoGrowth();
+    }
+});
+
+// Automated bacteria growth
+setInterval(() => {
+    bacteriaCount += autoGrowth; // Increase bacteria count based on autoGrowth
+    updateBacteriaCount();
+}, 1000); // Update every second

@@ -18,6 +18,10 @@ const buyUpgrade1Btn = document.getElementById('buy-upgrade-1');
 const buyUpgrade2Btn = document.getElementById('buy-upgrade-2');
 const buyUpgrade3Btn = document.getElementById('buy-upgrade-3');
 
+// Sound elements
+const replicateSound = document.getElementById('replicate-sound');
+const upgradeSound = document.getElementById('upgrade-sound');
+
 // Function to update the bacteria count display
 function updateBacteriaCount() {
     bacteriaCountElement.innerText = bacteriaCount;
@@ -32,6 +36,8 @@ function updateAutoGrowth() {
 replicateBtn.addEventListener('click', () => {
     bacteriaCount += bacteriaPerClick;
     updateBacteriaCount();
+    replicateSound.currentTime = 0; // Reset sound to start
+    replicateSound.play(); // Play the replicate sound
 });
 
 // Function to buy the Faster Replication upgrade
@@ -43,6 +49,8 @@ buyUpgrade1Btn.addEventListener('click', () => {
         buyUpgrade1Btn.disabled = true;
         buyUpgrade1Btn.innerText = 'Purchased';
         updateBacteriaCount();
+        upgradeSound.currentTime = 0; // Reset sound to start
+        upgradeSound.play(); // Play the upgrade sound
     }
 });
 
@@ -55,6 +63,8 @@ buyUpgrade2Btn.addEventListener('click', () => {
         buyUpgrade2Btn.innerText = 'Purchased';
         // TODO: Unlock new features or environments here.
         updateBacteriaCount();
+        upgradeSound.currentTime = 0; // Reset sound to start
+        upgradeSound.play(); // Play the upgrade sound
     }
 });
 
@@ -68,6 +78,8 @@ buyUpgrade3Btn.addEventListener('click', () => {
         buyUpgrade3Btn.innerText = 'Purchased';
         updateBacteriaCount();
         updateAutoGrowth();
+        upgradeSound.currentTime = 0; // Reset sound to start
+        upgradeSound.play(); // Play the upgrade sound
     }
 });
 
